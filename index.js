@@ -12,6 +12,12 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(
+  cors({
+    origin: "*",
+  })
+);
+
 require("./startup/routes")(app);
 require("./startup/db")();
 require("./startup/config")();
