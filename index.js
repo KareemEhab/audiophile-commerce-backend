@@ -1,7 +1,6 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
-const cors = require("cors");
 require("express-async-errors");
 const logger = require("./services/logging");
 
@@ -11,12 +10,6 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();
 });
-
-app.use(
-  cors({
-    origin: "*",
-  })
-);
 
 require("./startup/routes")(app);
 require("./startup/db")();
