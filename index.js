@@ -8,6 +8,8 @@ const logger = require("./services/logging");
 app.use(
   cors({
     origin: "https://audiophile-ecommerce-webapp.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
