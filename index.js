@@ -5,11 +5,18 @@ const cors = require("cors");
 require("express-async-errors");
 const logger = require("./services/logging");
 
+const allowedOrigins = [
+  "https://audiophile-ecommerce-webapp.vercel.app", // Production
+  "http://localhost:5173", // Development
+];
+
 app.use((req, res, next) => {
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://audiophile-ecommerce-webapp.vercel.app/*"
-  );
+  const origin = req.headers.origin;
+
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
+
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();
@@ -17,7 +24,9 @@ app.use((req, res, next) => {
 
 app.use(
   cors({
-    origin: "*",
+    origin: allowedOrigins,
+    methods: "GET,POST,PUT,DELETE",
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
